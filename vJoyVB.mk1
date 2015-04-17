@@ -1,0 +1,25 @@
+!define BLANK ""
+E:\Privat\vJoyVB\vJoyVB.obj : E:\Privat\vJoyVB\vJoyVB.cpp .AUTODEPEND
+ @E:
+ cd E:\Privat\vJoyVB
+ *wpp386 vJoyVB.cpp -i="D:\WATCOM/h;D:\WATCOM/h/nt" -w4 -e25 -zq -od -d2 -bd&
+ -6r -bt=nt -fo=.obj -mf -xs -xr
+
+E:\Privat\vJoyVB\vJoyVB.dll : E:\Privat\vJoyVB\vJoyVB.obj E:\Privat\vJoyVB\p&
+ublic.h E:\Privat\vJoyVB\vjoyinterface.h E:\Privat\vJoyVB\vJoyInterface.lib &
+.AUTODEPEND
+ @E:
+ cd E:\Privat\vJoyVB
+ @%write vJoyVB.lk1 FIL vJoyVB.obj
+ @%append vJoyVB.lk1 LIBR vJoyInterface.lib
+!ifneq BLANK ""
+ *wlib -q -n -b vJoyVB.imp 
+ @%append vJoyVB.lk1 LIBR vJoyVB.imp
+!endif
+!ifneq BLANK ""
+ @%append vJoyVB.lk1 
+!endif
+ *wlink name vJoyVB d all sys nt_dll op m exp =exports.lbc op maxe=25 op q o&
+p symf @vJoyVB.lk1
+ wlib -q -n -b vJoyVB.lib +vJoyVB.dll
+
